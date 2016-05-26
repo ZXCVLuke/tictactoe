@@ -2,6 +2,7 @@
 
 // Variables
 @color-orange-bg: #ECA31F;
+@color-green: #6bdd57;
 
 @line-thickness: 8px;
 @tile-size : 80px;
@@ -91,9 +92,21 @@ body {
 
 .prompts {
   position: absolute;
-  margin: 30px 0;
-  font-size: 28px;
+  margin: 50px 0;
   color: black;
+
+  p {
+    margin:0;
+    line-height: 1.2;
+  }
+
+  .main {
+    font-size: 28px;
+
+  }
+  .sub {
+    font-size: 20px;
+  }
 }
 
 .game-board {
@@ -121,6 +134,10 @@ button.board-tile {
       font-size: 60px;
       line-height: 0.8;
     }
+  }
+
+  &:focus {
+    outline: none;
   }
 
   &:focus:enabled {
@@ -167,7 +184,25 @@ button.noughts {
   background: black;
 }
 
+.reset {
+  margin: 30px 0;
 
+  button {
+    padding: 12px 15px 15px;
+    background-color: @color-green;
+    border: none;
+    float: right;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: darken(desaturate(@color-green, 15%), 10%);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
 
 
 
