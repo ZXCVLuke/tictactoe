@@ -13,15 +13,15 @@ $( document ).ready(function() {
     $(this).addClass( "crosses" ).attr("disabled", "disabled").attr("name", "crosses");
 
     // check each id (ie. a0) for name of .noughts or .crosses
-    gameBoard[0] = $('#a0').attr('name');
-    gameBoard[1] = $('#a1').attr('name');
-    gameBoard[2] = $('#a2').attr('name');
-    gameBoard[3] = $('#b0').attr('name');
-    gameBoard[4] = $('#b1').attr('name');
-    gameBoard[5] = $('#b2').attr('name');
-    gameBoard[6] = $('#c0').attr('name');
-    gameBoard[7] = $('#c1').attr('name');
-    gameBoard[8] = $('#c2').attr('name');
+    gameBoard[0] = $('#tile0').attr('name');
+    gameBoard[1] = $('#tile1').attr('name');
+    gameBoard[2] = $('#tile2').attr('name');
+    gameBoard[3] = $('#tile3').attr('name');
+    gameBoard[4] = $('#tile4').attr('name');
+    gameBoard[5] = $('#tile5').attr('name');
+    gameBoard[6] = $('#tile6').attr('name');
+    gameBoard[7] = $('#tile7').attr('name');
+    gameBoard[8] = $('#tile8').attr('name');
 
     // Check for win
     if (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && gameBoard[0] === "crosses" ||
@@ -59,6 +59,20 @@ $( document ).ready(function() {
       $(".sub").text("Hold tight");
 
       // Randomly select tile, change class and name
+      var computerMove = ("#tile" + [Math.floor(Math.random() * 8)]);
+      alert(computerMove);
+
+      if ($(computerMove).hasClass("crosses")) {
+        alert("crosses");
+      }
+
+      else if ($(computerMove).hasClass("noughts")) {
+        alert("noughts");
+      }
+
+      else 
+
+
 
 
 
