@@ -3,10 +3,20 @@
 // Randomise choice of player or computer to go first.
 
 // Players turn
-// Allow player to click on only one button on the gameboard.
+
 
 
 // On click change button to disabled="disabled" and add .crosses
+
+$( document ).ready(function() {
+
+    $( "button" ).click(function(){
+      $(this).addClass( "crosses" ).attr("disabled", "disabled");
+    });
+
+});
+
+// Allow player to click on only one button on the gameboard.
 
 
 // Check for win by checking to see if three buttons in a line have the same

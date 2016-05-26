@@ -96,7 +96,7 @@ button.board-tile:hover:enabled:before {
   line-height: 0.8;
 }
 button.board-tile:focus:enabled {
-  background-color: #c78611;
+  background-color: #6bdd57;
   outline: none;
 }
 button.board-tile:focus:enabled:before {
