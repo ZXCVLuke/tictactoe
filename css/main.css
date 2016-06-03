@@ -99,10 +99,7 @@ button.board-tile:hover:enabled {
   background-color: #c78611;
 }
 button.board-tile:hover:enabled:before {
-  content: "X";
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 60px;
-  line-height: 0.8;
+  content: url(../img/tilex.png);
 }
 button.board-tile:focus {
   outline: none;
@@ -112,28 +109,19 @@ button.board-tile:focus:enabled {
   outline: none;
 }
 button.board-tile:focus:enabled:before {
-  content: "X";
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 60px;
-  line-height: 0.8;
+  content: url(../img/tilex.png);
 }
 button.crosses {
   background-color: #6bdd57;
 }
 button.crosses:before {
-  content: "X";
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 60px;
-  line-height: 0.8;
+  content: url(../img/tilex.png);
 }
 button.noughts {
   background-color: #fff28b;
 }
 button.noughts:before {
-  content: "O";
-  color: rgba(0, 0, 0, 0.85);
-  font-size: 60px;
-  line-height: 0.8;
+  content: url(../img/tileo.png);
 }
 .vert-line {
   width: 8px;
