@@ -53,12 +53,12 @@ html {
 }
 body {
   height: 100%;
-  padding: 20px;
   font-family: "Paytone One", sans-serif;
 }
 .bg {
   background: #ECA31F;
   height: 100%;
+  min-height: 530px;
 }
 .container {
   width: 256px;
@@ -99,7 +99,7 @@ button.board-tile:hover:enabled {
   background-color: #c78611;
 }
 button.board-tile:hover:enabled:before {
-  content: "✖";
+  content: "X";
   color: rgba(0, 0, 0, 0.3);
   font-size: 60px;
   line-height: 0.8;
@@ -112,7 +112,7 @@ button.board-tile:focus:enabled {
   outline: none;
 }
 button.board-tile:focus:enabled:before {
-  content: "✖";
+  content: "X";
   color: rgba(0, 0, 0, 0.85);
   font-size: 60px;
   line-height: 0.8;
@@ -121,7 +121,7 @@ button.crosses {
   background-color: #6bdd57;
 }
 button.crosses:before {
-  content: "✖";
+  content: "X";
   color: rgba(0, 0, 0, 0.85);
   font-size: 60px;
   line-height: 0.8;
