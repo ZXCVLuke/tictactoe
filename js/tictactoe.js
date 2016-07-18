@@ -7,6 +7,9 @@ $( document ).ready(function() {
   // Create an empty array for the 9 tiles, a variable for the suit in play,
   // and a variable for the status of the game.
   var gameBoard = new Array(9);
+  for (i = 0; i < gameBoard.length; i++) {
+    gameBoard[i] = '';
+  }
   var playerSuit = 'crosses';
   var gameStatus = '';
 
@@ -17,16 +20,20 @@ $( document ).ready(function() {
     // Update DOM, show player selection
     $(this).addClass( "crosses" ).attr("disabled", "disabled").attr("name", "crosses");
 
+    console.log($(this).attr("id"));
+
+    var index = $(this).attr("id");
+    var index = index[4];
+
+    console.log(index);
+
+    gameBoard[index] = 'crosses';
+
+
     // Update array from 'names' on #tiles
-    gameBoard[0] = $('#tile0').attr('name');
-    gameBoard[1] = $('#tile1').attr('name');
-    gameBoard[2] = $('#tile2').attr('name');
-    gameBoard[3] = $('#tile3').attr('name');
-    gameBoard[4] = $('#tile4').attr('name');
-    gameBoard[5] = $('#tile5').attr('name');
-    gameBoard[6] = $('#tile6').attr('name');
-    gameBoard[7] = $('#tile7').attr('name');
-    gameBoard[8] = $('#tile8').attr('name');
+
+
+
 
     // Check array for player win
     if (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && gameBoard[0] === ('crosses') ||

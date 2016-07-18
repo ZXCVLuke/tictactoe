@@ -97,9 +97,9 @@ function checkForWin() {
       gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8] && gameBoard[2] === (playerSuit) ||
       gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8] && gameBoard[0] === (playerSuit) ||
       gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && gameBoard[2] === (playerSuit)) {
-        return playerSuit + "wins";
+        return playerSuit + "wins"; }
   else { return "" }
-}}
+}
 
 
 // Check for stalemates
@@ -113,9 +113,9 @@ function checkForStalemate () {
        !!gameBoard[6] === true &&
        !!gameBoard[7] === true &&
        !!gameBoard[8] === true) {
-         return "stalemate";
+         return "stalemate"; }
   else { return "" }
-}}
+}
 
 // Set up for Computer's move
 function setupForComputer () {
@@ -139,22 +139,23 @@ function setupForPlayer () {
 
 function computerMove () {
 
-  // Create an array of available tiles
-  //var availableTiles = newArray();
-  //($(#tile0)).attr()
+  function getAvailable(){
+  var available = [];
+  for (var i=0; i<9; i++){
+    if (gameBoard[i] === ""){
+      available.push(i);
+    }
+  }
+  return available;
+  }
+  var availableTiles = getAvailable();
+  //alert(availableTiles)
 
-  var computerMove = ("#tile" + [Math.floor(Math.random() * 8)]);
-  if ($(computerMove).hasClass("crosses")) {
-    alert("crosses");
-  }
-  else if ($(computerMove).hasClass("noughts")) {
-    alert("noughts");
-  }
-  else {
-    // Computer's move changes button to disabled="disabled" and adds .noughts and name="noughts"
+  var computerMove = "#tile" + availableTiles[[Math.floor(Math.random() * availableTiles.length)]];
+
     ($(computerMove)).addClass( "noughts" ).attr("disabled", "disabled").attr("name", "noughts");
-  }
-};
+    
+}
 
 
 }); // End document ready function
