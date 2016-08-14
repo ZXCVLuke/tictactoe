@@ -1,171 +1,219 @@
 // tictactoe.js
 
-// Wait until the page has loaded.
-// Seems not to work unless everything is wrapped in this?
+var ttt = {
+  gameBoard : new Array(9),
+  playerSuit : 'x',
+  computerSuit : 'o',
+  gameStatus : '',
+
+  // Update array with names (either "", "x", or "o") of each of the tiles
+  updateGameBoard : function() {
+      // todo - Make this into a forEach
+      ttt.gameBoard[0] = $('#tile0').attr('name');
+      ttt.gameBoard[1] = $('#tile1').attr('name');
+      ttt.gameBoard[2] = $('#tile2').attr('name');
+      ttt.gameBoard[3] = $('#tile3').attr('name');
+      ttt.gameBoard[4] = $('#tile4').attr('name');
+      ttt.gameBoard[5] = $('#tile5').attr('name');
+      ttt.gameBoard[6] = $('#tile6').attr('name');
+      ttt.gameBoard[7] = $('#tile7').attr('name');
+      ttt.gameBoard[8] = $('#tile8').attr('name');
+  },
+
+  // Check for wins
+  checkForWin : function(suit) {
+    var g = ttt.gameBoard;
+    if (g[0] === g[1] && g[1] === g[2] && g[0] === (suit) ||
+        g[3] === g[4] && g[4] === g[5] && g[3] === (suit) ||
+        g[6] === g[7] && g[7] === g[8] && g[6] === (suit) ||
+        g[0] === g[3] && g[3] === g[6] && g[0] === (suit) ||
+        g[1] === g[4] && g[4] === g[7] && g[1] === (suit) ||
+        g[2] === g[5] && g[5] === g[8] && g[2] === (suit) ||
+        g[0] === g[4] && g[4] === g[8] && g[0] === (suit) ||
+        g[2] === g[4] && g[4] === g[6] && g[2] === (suit) ) {
+          if (suit === ttt.playerSuit){
+            ttt.gameStatus = 'playerwins';
+          } else if (suit === ttt.computerSuit){
+            ttt.gameStatus = 'computerwins';
+          } else {};
+        }
+    else {}
+  },
+
+  // Check for stalemates
+  checkForStalemate : function() {
+    switch (ttt.gameStatus) {
+      case 'playerwins':
+        break
+      case 'computerwins':
+        break
+      case '':
+        var g = ttt.gameBoard;
+        if ( !!g[0] === true &&
+             !!g[1] === true &&
+             !!g[2] === true &&
+             !!g[3] === true &&
+             !!g[4] === true &&
+             !!g[5] === true &&
+             !!g[6] === true &&
+             !!g[7] === true &&
+             !!g[8] === true) {
+               ttt.gameStatus = "stalemate"; }
+        else {}
+    };
+  },
+
+  // Game status switch
+  gameStatusCheck : function() {
+  switch (ttt.gameStatus) {
+    case 'playerwins':
+      $(".board-tile").attr("disabled", "disabled");
+      $(".reset").removeClass("hidden");
+      $(".main").text("Game Over");
+      $(".sub").text("You win");
+      break
+    case 'computerwins':
+      $(".board-tile").attr("disabled", "disabled");
+      $(".reset").removeClass("hidden");
+      $(".main").text("Game Over");
+      $(".sub").text("You lose");
+      break
+    case 'stalemate':
+      $(".board-tile").attr("disabled", "disabled");
+      $(".reset").removeClass("hidden");
+      $(".main").text("Game Over");
+      $(".sub").text("Nobody wins");
+      break
+    default:
+  }},
+
+  // Set up for Computer's move
+  setupForComputer : function () {
+    $(".board-tile").attr("disabled", "disabled");
+    $(".main").text("Computer's turn");
+    $(".sub").text("Hold tight");
+  },
+
+  // Set up for Player's move
+  setupForPlayer : function() {
+    $(".main").text("Your turn");
+    $(".sub").text("Choose a tile");
+    for (i = 0; i < 9; i++) {
+      if ($('#tile' + i).attr('name') === ''){
+        $('#tile' + i).removeAttr("disabled");
+  }}},
+
+  computerMove : function() {
+    var g = ttt.gameBoard;
+    var cs = ttt.computerSuit;
+    var ps = ttt.playerSuit;
+    var computerMove;
+
+    function getAvailable(){
+      var available = [];
+      for (var i=0; i<9; i++){
+        if (!!ttt.gameBoard[i] === false){
+          available.push(i);
+        }}
+      return available;
+    }
+    var availableTiles = getAvailable();
+    // horizontals
+    if (g[0] === g[1] && g[0] !== '' && $.inArray(2, availableTiles) !== -1 ) {
+      computerMove = '#tile2';
+    } else if (g[0] === g[2] && g[0] !== '' && $.inArray(1, availableTiles) !== -1 ) {
+      computerMove = '#tile1';
+    } else if (g[1] === g[2] && g[1] !== '' && $.inArray(0, availableTiles) !== -1 ) {
+      computerMove = '#tile0';
+    } else if (g[3] === g[4] && g[3] !== '' && $.inArray(5, availableTiles) !== -1 ) {
+      computerMove = '#tile5';
+    } else if (g[3] === g[5] && g[3] !== '' && $.inArray(4, availableTiles) !== -1 ) {
+      computerMove = '#tile4';
+    } else if (g[4] === g[5] && g[4] !== '' && $.inArray(3, availableTiles) !== -1 ) {
+      computerMove = '#tile3';
+    } else if (g[6] === g[7] && g[6] !== '' && $.inArray(8, availableTiles) !== -1 ) {
+      computerMove = '#tile8';
+    } else if (g[6] === g[8] && g[6] !== '' && $.inArray(7, availableTiles) !== -1 ) {
+      computerMove = '#tile7';
+    } else if (g[7] === g[8] && g[7] !== '' && $.inArray(6, availableTiles) !== -1 ) {
+      computerMove = '#tile6';
+    // verticals
+    } else if (g[0] === g[3] && g[0] !== '' && $.inArray(6, availableTiles) !== -1 ) {
+      computerMove = '#tile6';
+    } else if (g[0] === g[6] && g[0] !== '' && $.inArray(3, availableTiles) !== -1 ) {
+      computerMove = '#tile3';
+    } else if (g[3] === g[6] && g[3] !== '' && $.inArray(0, availableTiles) !== -1 ) {
+      computerMove = '#tile0';
+    } else if (g[1] === g[4] && g[1] !== '' && $.inArray(7, availableTiles) !== -1 ) {
+      computerMove = '#tile7';
+    } else if (g[1] === g[7] && g[1] !== '' && $.inArray(4, availableTiles) !== -1 ) {
+      computerMove = '#tile4';
+    } else if (g[4] === g[7] && g[4] !== '' && $.inArray(1, availableTiles) !== -1 ) {
+      computerMove = '#tile1';
+    } else if (g[2] === g[5] && g[2] !== '' && $.inArray(8, availableTiles) !== -1 ) {
+      computerMove = '#tile8';
+    } else if (g[2] === g[8] && g[2] !== '' && $.inArray(5, availableTiles) !== -1 ) {
+      computerMove = '#tile5';
+    } else if (g[5] === g[8] && g[5] !== '' && $.inArray(2, availableTiles) !== -1 ) {
+      computerMove = '#tile2';
+    // diagonals
+    } else if (g[0] === g[4] && g[0] !== '' && $.inArray(8, availableTiles) !== -1 ) {
+      computerMove = '#tile8';
+    } else if (g[0] === g[8] && g[0] !== '' && $.inArray(4, availableTiles) !== -1 ) {
+      computerMove = '#tile4';
+    } else if (g[4] === g[8] && g[4] !== '' && $.inArray(0, availableTiles) !== -1 ) {
+      computerMove = '#tile0';
+    } else if (g[2] === g[6] && g[2] !== '' && $.inArray(4, availableTiles) !== -1 ) {
+      computerMove = '#tile4';
+    } else if (g[2] === g[4] && g[2] !== '' && $.inArray(6, availableTiles) !== -1 ) {
+      computerMove = '#tile6';
+    } else if (g[4] === g[6] && g[4] !== '' && $.inArray(2, availableTiles) !== -1 ) {
+      computerMove = '#tile2';
+    // grab the middle tile first if available
+    } else if ($.inArray(4, availableTiles) !== -1 ) {
+      computerMove = '#tile4';
+    // otherwise select a random tile
+    } else {
+      var computerMove = "#tile" + availableTiles[[Math.floor(Math.random() * availableTiles.length)]];
+    }
+    ($(computerMove)).addClass( ttt.computerSuit ).attr("disabled", "disabled").attr("name", ttt.computerSuit);
+  }
+}
+
 $( document ).ready(function() {
 
-  // Create an empty array for the 9 tiles, a variable for the suit in play,
-  // and a variable for the status of the game.
-  var gameBoard = new Array(9);
-  for (i = 0; i < gameBoard.length; i++) {
-    gameBoard[i] = '';
-  }
-  var playerSuit = 'crosses';
-  var gameStatus = '';
-
-
-  // Set off a function when a tile is clicked, this is where it all goes down.
+  // Set the whole shebang off a players move.
   $( ".board-tile" ).click(function(){
+    // Players turn
+    $(this).addClass( ttt.playerSuit ).attr("disabled", "disabled").attr("name", ttt.playerSuit);
+    ttt.updateGameBoard(); // Update array from 'names' on #tiles
+    ttt.checkForWin(ttt.playerSuit); // Check array for player win
+    ttt.checkForStalemate(); // Check array for stalemate
+    ttt.gameStatusCheck(); // Finish game if win or stalemate
+    if (ttt.gameStatus === ''){
+      ttt.setupForComputer(); // Disable all tiles and update prompts
+      // Computers turn
+      setTimeout(function(){
+        ttt.computerMove(); // Computer randomly select tile
+        ttt.updateGameBoard(); // Update array from 'names' on #tiles
+        ttt.checkForWin(ttt.computerSuit); // Check array for computer win
+        ttt.checkForStalemate(); // Check array for stalemate
+        ttt.gameStatusCheck(); // Finish game if win or stalemate
+        if (ttt.gameStatus === '') {
+          ttt.setupForPlayer(); // Enable available tiles and update prompts
+        };
+      }, 1000);
+    };
+  });
 
-    // Update DOM, show player selection
-    $(this).addClass( "crosses" ).attr("disabled", "disabled").attr("name", "crosses");
+  // Reset button
+  $( ".reset" ).click(function(){
+    ttt.gameStatus = '';
+    ttt.gameBoard = ['','','','','','','','',''];
+    $(".board-tile").removeClass( "x" ).removeClass( "o" ).removeAttr("disabled").attr("name", "");
+    $(this).addClass("hidden");
+    $(".main").text("Your turn");
+    $(".sub").text("Choose a tile");
+  });
 
-    console.log($(this).attr("id"));
-
-    var index = $(this).attr("id");
-    var index = index[4];
-
-    console.log(index);
-
-    gameBoard[index] = 'crosses';
-
-
-    // Update array from 'names' on #tiles
-
-
-
-
-    // Check array for player win
-    if (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && gameBoard[0] === ('crosses') ||
-        gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5] && gameBoard[3] === ('crosses') ||
-        gameBoard[6] === gameBoard[7] && gameBoard[7] === gameBoard[8] && gameBoard[6] === ('crosses') ||
-        gameBoard[0] === gameBoard[3] && gameBoard[3] === gameBoard[6] && gameBoard[0] === ('crosses') ||
-        gameBoard[1] === gameBoard[4] && gameBoard[4] === gameBoard[7] && gameBoard[1] === ('crosses') ||
-        gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8] && gameBoard[2] === ('crosses') ||
-        gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8] && gameBoard[0] === ('crosses') ||
-        gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && gameBoard[2] === ('crosses')) {
-          $(".board-tile").attr("disabled", "disabled");
-          $(".reset").removeClass("hidden");
-          $(".main").text("Game Over");
-          $(".sub").text("You win");
-        }
-
-    // Check array for stalemate
-    else if ( !!gameBoard[0] === true &&
-         !!gameBoard[1] === true &&
-         !!gameBoard[2] === true &&
-         !!gameBoard[3] === true &&
-         !!gameBoard[4] === true &&
-         !!gameBoard[5] === true &&
-         !!gameBoard[6] === true &&
-         !!gameBoard[7] === true &&
-         !!gameBoard[8] === true) {
-           $(".board-tile").attr("disabled", "disabled");
-           $(".reset").removeClass("hidden");
-           $(".main").text("Game Over");
-           $(".sub").text("Nobody wins");
-         }
-
-     else {
-     // Set up for computer's turn
-     $(".board-tile").attr("disabled", "disabled");
-     $(".main").text("Computer's turn");
-     $(".sub").text("Hold tight");
-
-     // Delay computer's move
-     setTimeout(function(){
-
-       // Computer randomly select tile
-
-
-
-
-       function getAvailable(){
-       var available = [];
-       for (var i=0; i<9; i++){
-         if (gameBoard[i] === ""){
-           available.push(i);
-         }
-       }
-       return available;
-       }
-       var availableTiles = getAvailable();
-       //alert(availableTiles)
-
-       var computerMove = "#tile" + availableTiles[[Math.floor(Math.random() * availableTiles.length)]];
-
-         ($(computerMove)).addClass( "noughts" ).attr("disabled", "disabled").attr("name", "noughts");
-
-
-       // Update array from 'names' on #tiles
-       gameBoard[0] = $('#tile0').attr('name');
-       gameBoard[1] = $('#tile1').attr('name');
-       gameBoard[2] = $('#tile2').attr('name');
-       gameBoard[3] = $('#tile3').attr('name');
-       gameBoard[4] = $('#tile4').attr('name');
-       gameBoard[5] = $('#tile5').attr('name');
-       gameBoard[6] = $('#tile6').attr('name');
-       gameBoard[7] = $('#tile7').attr('name');
-       gameBoard[8] = $('#tile8').attr('name');
-
-       // Check array for computer win
-       if (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2] && gameBoard[0] === ('noughts') ||
-           gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5] && gameBoard[3] === ('noughts') ||
-           gameBoard[6] === gameBoard[7] && gameBoard[7] === gameBoard[8] && gameBoard[6] === ('noughts') ||
-           gameBoard[0] === gameBoard[3] && gameBoard[3] === gameBoard[6] && gameBoard[0] === ('noughts') ||
-           gameBoard[1] === gameBoard[4] && gameBoard[4] === gameBoard[7] && gameBoard[1] === ('noughts') ||
-           gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8] && gameBoard[2] === ('noughts') ||
-           gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8] && gameBoard[0] === ('noughts') ||
-           gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6] && gameBoard[2] === ('noughts')) {
-             $(".board-tile").attr("disabled", "disabled");
-             $(".reset").removeClass("hidden");
-             $(".main").text("Game Over");
-             $(".sub").text("You lose");
-           }
-
-       // Check array for stalemate
-       else if ( !!gameBoard[0] === true &&
-            !!gameBoard[1] === true &&
-            !!gameBoard[2] === true &&
-            !!gameBoard[3] === true &&
-            !!gameBoard[4] === true &&
-            !!gameBoard[5] === true &&
-            !!gameBoard[6] === true &&
-            !!gameBoard[7] === true &&
-            !!gameBoard[8] === true) {
-              $(".board-tile").attr("disabled", "disabled");
-              $(".reset").removeClass("hidden");
-              $(".main").text("Game Over");
-              $(".sub").text("Nobody wins");
-            }
-
-       // Enable available tiles and update prompts
-       else {
-       $(".main").text("Your turn");
-       $(".sub").text("Choose a tile");
-       for (i = 0; i < 9; i++) {
-         if ($('#tile' + i).attr('name') === ''){
-           $('#tile' + i).removeAttr("disabled");
-         }
-       }
-     }
-
-     }, 500);
-   }
-
-  }); // End click function
-
-
-// ------------------------------------------------------
-// Functions
-
-// Reset button
-$( ".reset" ).click(function(){
-  $(".board-tile").removeClass( "crosses" ).removeClass( "noughts" ).removeAttr("disabled").attr("name", "");
-  $(this).addClass("hidden");
-  $(".main").text("Your turn");
-  $(".sub").text("Choose a tile");
 });
-
-
-}); // End document ready function

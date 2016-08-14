@@ -111,16 +111,16 @@ button.board-tile:focus:enabled {
 button.board-tile:focus:enabled:before {
   content: url(../img/tilex.png);
 }
-button.crosses {
+button.x {
   background-color: #6bdd57;
 }
-button.crosses:before {
+button.x:before {
   content: url(../img/tilex.png);
 }
-button.noughts {
+button.o {
   background-color: #fff28b;
 }
-button.noughts:before {
+button.o:before {
   content: url(../img/tileo.png);
 }
 .vert-line {
