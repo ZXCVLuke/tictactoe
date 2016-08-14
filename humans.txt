@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Designed and developed by Luke Powell
 
 # THANKS
 
-    <name>
+    Phil and Rich at GA Melbourne
 
 # TECHNOLOGY COLOPHON
 
